@@ -1,0 +1,44 @@
+<config>
+
+<!-- 1. Provider Ayarlama -->
+
+<system.data>
+   <DbProviderFactories>
+     <remove invariant="MySql.Data.MySqlClient" />
+     <add name="MySQL Data Provider" invariant="MySql.Data.MySqlClient" description=".Net Framework Data Provider for MySQL" 
+          type="MySql.Data.MySqlClient.MySqlClientFactory, MySql.Data, Version=8.0.10.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
+   </DbProviderFactories>
+</system.data>	
+	
+<!-- 2. Entity Framework Ayarlama -->
+
+<entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework"/>
+    <providers>
+        <provider invariantName="MySql.Data.MySqlClient"
+            type="MySql.Data.MySqlClient.MySqlProviderServices, MySql.Data.Entity.EF6"/>
+        <provider invariantName="System.Data.SqlClient"
+            type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer"/>
+    </providers>
+</entityFramework>
+
+<!-- 3. Connectionstring Ayarlama -->
+
+<connectionStrings>
+    <add name="MyContext" providerName="MySql.Data.MySqlClient"
+        connectionString="server=localhost;port=3306;database=mycontext;uid=root;password=********"/>
+</connectionStrings>
+
+<!-- 4. Context Sınıfı Ayarlama -->
+
+	<!-- 4.1. Context attribute -->
+		[DbConfigurationType(typeof(MySqlEFConfiguration))]
+	
+	<!-- 4.2. Proje Yükleme başlangıcında ayarlama -->
+		DbConfiguration.SetConfiguration(new MySqlEFConfiguration())
+
+	<!-- 4.3. config dosyasında entity tagı ayarlama -->
+		<!-- <entityFramework codeConfigurationType="MySql.Data.Entity.MySqlEFConfiguration, MySql.Data.Entity.EF6"> -->
+		
+
+</config>
